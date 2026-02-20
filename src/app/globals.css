@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
+/* ========== 중앙화된 디자인 토큰 (CSS 변수) ========== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette */
+  --primary: #FFE300;
+  --green: #00D080;
+  --red: #EC4343;
+  --blue: #425EFF;
+  --swiper-theme-color: #007aff;
+  --swiper-navigation-size: 44px;
+
+  /* White scale */
+  --white100: #FFFFFF;
+  --white40: rgba(255, 255, 255, 0.40);
+  --white30: rgba(255, 255, 255, 0.30);
+  --white20: rgba(255, 255, 255, 0.20);
+
+  /* Black / Gray scale */
+  --black5: #FAFAFA;
+  --black10: #F9F9F9;
+  --black15: #F7F7F7;
+  --black20: #F4F4F4;
+  --black25: #ECECEC;
+  --black30: #E6E6E6;
+  --black35: #DDDDDD;
+  --black40: #CCCCCC;
+  --black45: #BBBBBB;
+  --black50: #AAAAAA;
+  --black55: #999999;
+  --black60: #888888;
+  --black65: #777777;
+  --black70: #666666;
+  --black80: #444444;
+  --black85: #333333;
+  --black90: #222222;
+  --black100: #000000;
+
+  /* Semantic */
+  --color-text-primary: rgb(0, 0, 0);
+  --color-text-secondary: rgb(136, 136, 136);
+  --color-text-dark: rgb(68, 68, 68);
+  --color-border-divider: rgb(230, 230, 230);
+  --color-bg-light: rgb(247, 247, 247);
+  --color-footer-bg: rgb(249, 249, 249);
+  --color-focus-outline: rgb(0, 123, 255);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Layout */
+  --gutter: 20px;
+  --col-base: 12;
+  --container-padding: 0 40px;
+  --header-height: 62px;
+
+  /* Radius */
+  --radius-small: 6px;
+  --radius-circle: 50%;
+
+  /* Transitions */
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-normal: all 0.35s;
+  --transition-slow: all 0.4s ease-in-out;
+
+  /* Legacy compatibility */
+  --background: var(--white100);
+  --foreground: var(--black100);
 }
 
 @theme inline {
+  /* Tailwind에서 사용할 색상 매핑 */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-green: var(--green);
+  --color-red: var(--red);
+  --color-blue: var(--blue);
+  --font-sans: "Pretendard Variable", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --radius-sm: var(--radius-small);
+  --radius-full: var(--radius-circle);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Focus visible (접근성) */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+  outline-offset: 2px;
+}
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Disabled */
+button:disabled {
+  cursor: default;
 }
