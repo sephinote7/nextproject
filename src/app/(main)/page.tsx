@@ -125,8 +125,13 @@ export default function HomePage() {
           <p className="text-[18px] text-[var(--black70)] max-w-xl">
             더 많은 서비스와 소식을 만나보세요.
           </p>
-          <Link href="/company/intro">
+          <Link href="/login">
             <Button variant="primary" size="lg">
+              로그인
+            </Button>
+          </Link>
+          <Link href="/company/intro">
+            <Button variant="outline" size="lg">
               회사 소개 보기
             </Button>
           </Link>

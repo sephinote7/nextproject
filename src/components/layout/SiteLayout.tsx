@@ -1,15 +1,49 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Header,
   Footer,
   FooterTopButton,
+  Button,
 } from '@/components/ui';
 import { siteNav } from '@/config/site';
+import { useAuth } from '@/lib/supabase/auth-context';
+import { supabase } from '@/lib/supabase/client';
 import { type ReactNode } from 'react';
 
 export function SiteLayout({ children }: { children: ReactNode }) {
+  const { session, isLoading } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+    router.refresh();
+  };
+
+  const headerRight = isLoading ? (
+    <span className="text-[14px] text-[var(--black50)]">...</span>
+  ) : session ? (
+    <Button
+      type="button"
+      variant="ghost"
+      size="sm"
+      onClick={handleLogout}
+      className="text-[14px]"
+    >
+      Logout
+    </Button>
+  ) : (
+    <Link
+      href="/login"
+      className="text-[14px] font-medium text-[var(--black100)] hover:text-[var(--black80)] no-underline"
+    >
+      Login
+    </Link>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--white100)] text-[var(--black100)]">
       <Header
@@ -20,13 +54,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </Link>
         }
         links={siteNav.headerLinks}
-        right={
-          <span className="text-[14px] text-[var(--black100)]">
-            <span className="font-medium">KR</span>
-            <span className="text-[var(--black40)] mx-1">|</span>
-            <span className="text-[var(--black50)]">EN</span>
-          </span>
-        }
+        right={headerRight}
       />
       <main className="flex-1">{children}</main>
       <Footer
